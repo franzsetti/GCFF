@@ -3,7 +3,7 @@
 % University of Verona
 % http://www.di.univr.it/
 %     and
-% Department of COmputer Science
+% Department of Computer Science
 % University College of London
 % 
 % Permission is hereby granted, free of charge, to any person obtaining a
