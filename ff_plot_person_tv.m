@@ -1,21 +1,14 @@
-% Copyright 2014 Francesco Setti and Marco Cristani
-% Department of Computer Science
-% University of Verona
-% http://www.di.univr.it/
+% -----------------------------------------
+% Graph-Cuts for F-Formation (GCFF)
+% 2015 - University of Verona
+% Written by Francesco Setti
+% -----------------------------------------
+%
+% This function plots a person symbol from top view.
 % 
-% Permission is hereby granted, free of charge, to any person obtaining a
-% copy of this software and associated documentation files (the
-% "Software"), to deal in the Software without restriction, subject to the
-% following conditions: 
-%  * The above copyright notice and this permission notice shall be
-%    included in all copies or substantial portions of the Software. 
-%  * The Software is provided "as is", without warranty of any kind.
-%
-% September 2014
-%
 
 function ff_plot_person_tv( xx_feat, yy_feat, alpha_feat, col, scale)
-% This function plots a person symbol from top view.
+
 
 if ~exist('col','var')
     col = 'b' ;
@@ -61,5 +54,3 @@ for ii = 1:length(xx)
     end
 end
 hold off
-
-

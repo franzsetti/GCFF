@@ -1,20 +1,9 @@
-% Copyright 2014 Francesco Setti and Marco Cristani
-% Department of Computer Science
-% University of Verona
-% http://www.di.univr.it/
-% 
-% Permission is hereby granted, free of charge, to any person obtaining a
-% copy of this software and associated documentation files (the
-% "Software"), to deal in the Software without restriction, subject to the
-% following conditions: 
-%  * The above copyright notice and this permission notice shall be
-%    included in all copies or substantial portions of the Software. 
-%  * The Software is provided "as is", without warranty of any kind.
+% -----------------------------------------
+% Graph-Cuts for F-Formation (GCFF)
+% 2015 - University of Verona
+% Written by Francesco Setti
+% -----------------------------------------
 %
-% September 2014
-%
-
-function [precision,recall,TP,FP,FN] = ff_evalgroups(group,GT,TH,cardmode)
 % EVALGROUPS computes precision and recall scores, as well as the number of
 % true positives, false positives and false negatives, given a set of
 % detected groups and a set of ground truth groups.
@@ -54,7 +43,8 @@ function [precision,recall,TP,FP,FN] = ff_evalgroups(group,GT,TH,cardmode)
 % are all vectors with different sizes depending on the maximum cardinality
 % of group and GT inputs.
 %
-%
+
+function [precision,recall,TP,FP,FN] = ff_evalgroups(group,GT,TH,cardmode)
 
 
 %% INITIALIZATION
@@ -90,7 +80,7 @@ end
 % if isempty(group)
 %     warning('group_empty','Input variable GROUPS is empty! Precision should be NaN!')
 % end
-% 
+%
 % % CHECK: GT
 % if isempty(GT)
 %     warning('GT_empty','Input variable GT is empty! Recall should be NaN!')
@@ -100,9 +90,9 @@ end
 %% PROCESSING
 
 switch cardmode
-    
+
     case 0  % CARDMODE: OFF
-        
+
         % Degenerate cases:
         if isempty(group) && isempty(GT)
             TP = 0 ;
@@ -126,46 +116,46 @@ switch cardmode
             recall = 1 ;
             return ;
         end
-        
+
         % Initialize the 'True Positive'
         TP = 0 ;
-        
+
         % For each GT group
         for ii = 1:length(GT)
-            
+
             % Select the GT group and its cardinality (= number of elements)
             GTtmp  = GT{ii} ;
             GTcard = length(GTtmp) ;
-            
+
             % for each detected group
             for jj = 1:size(group,2)
-                
+
                 % Select the detected group and its cardinality (= number of elements)
                 grouptmp  = group{jj} ;
                 groupcard = length(grouptmp) ;
-                
+
                 % Find the intersection between the GT and detected groups
                 % and its cardinality.
                 inters     = intersect(GTtmp,grouptmp) ;
                 interscard = length(inters) ;
-                
+
                 if ge(interscard/max(GTcard,groupcard),TH)
                     TP = TP + 1 ;
                     break
                 end
             end
         end
-        
+
         % Define the number of false positives and negatives.
         FP = size(group,2) - TP ;
         FN = size(GT,2) - TP ;
-        
+
         % Compute precision and recall.
         precision = TP ./ (TP+FP) ;
         recall = TP ./ (TP+FN) ;
-        
+
     case 1  % CARDMODE: ON
-        
+
         % Detect the number of groups in detected and ground truth.
         for ii = 1:length(GT)
             c_GT(ii) = numel(GT{ii}) ;
@@ -173,7 +163,7 @@ switch cardmode
         for jj = 1:length(group)
             c_group(jj) = numel(group{jj}) ;
         end
-        
+
         if ~isempty(GT)
             GTcardmax    = max(c_GT) ;
             h_GT = hist(c_GT,1:GTcardmax) ;
@@ -182,49 +172,49 @@ switch cardmode
             groupcardmax = max(c_group) ;
             h_group = hist(c_group,1:groupcardmax) ;
         end
-        
+
         if isempty(group) && isempty(GT)        % GT = G = []
             precision = NaN ;
             recall    = NaN ;
             TP        = NaN ;
             FP        = NaN ;
             FN        = NaN ;
-            
+
         elseif isempty(group) && ~isempty(GT)   % G = []
             TP        = zeros(GTcardmax,1) ;
             FP        = 0 ;
             FN        = h_GT ;
-            
+
         elseif ~isempty(group) && isempty(GT)   % GT = []
             TP        = zeros(1,groupcardmax) ;
             FP        = h_group ;
             FN        = 0 ;
-            
+
         else                                    % no []
-            
+
             % Initialize the 'True Positives'
             TP = zeros(GTcardmax,groupcardmax) ;
-            
+
             % For each GT group
             for ii = 1:length(GT)
-                
+
                 % Select the GT group and its cardinality (= number of elements)
                 GTtmp  = GT{ii} ;
                 GTcard = numel(GTtmp) ;
                 if GTcard > GTcardmax
                     GTcardmax = GTcard ;
                 end
-                
+
                 % for each detected group
                 for jj = 1:length(group)
-                    
+
                     % Select the detected group and its cardinality (= number of elements)
                     grouptmp  = group{jj} ;
                     groupcard = numel(grouptmp) ;
                     if groupcard > groupcardmax
                         groupcardmax = groupcard ;
                     end
-                    
+
                     % Find the intersection between the GT and detected groups
                     % and its cardinality.
                     inters     = intersect(GTtmp,grouptmp) ;
@@ -233,27 +223,21 @@ switch cardmode
                         TP(GTcard,groupcard) = TP(GTcard,groupcard) + 1 ;
                         break
                     end
-                    
+
                 end
-                
+
             end
-            
+
             % Define the number of false positives and negatives.
             FP = h_group - sum(TP,1) ;
             FN = h_GT - sum(TP,2)' ;
-            
+
         end
-        
+
         % Define precision.
         precision = sum(TP,1) ./ (sum(TP,1)+FP) ;
-        
+
         % Define recall.
         recall = sum(TP,2)' ./ (sum(TP,2)'+FN) ;
-        
+
 end
-
-
-
-
-
-

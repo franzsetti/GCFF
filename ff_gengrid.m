@@ -1,22 +1,14 @@
-% Copyright 2014 Francesco Setti and Marco Cristani
-% Department of Computer Science
-% University of Verona
-% http://www.di.univr.it/
-% 
-% Permission is hereby granted, free of charge, to any person obtaining a
-% copy of this software and associated documentation files (the
-% "Software"), to deal in the Software without restriction, subject to the
-% following conditions: 
-%  * The above copyright notice and this permission notice shall be
-%    included in all copies or substantial portions of the Software. 
-%  * The Software is provided "as is", without warranty of any kind.
+% -----------------------------------------
+% Graph-Cuts for F-Formation (GCFF)
+% 2015 - University of Verona
+% Written by Francesco Setti
+% -----------------------------------------
 %
-% September 2014
+% This function generates a grid for Hough voting with a quantization
+% 'quant'.
 %
 
 function [votegrid, votegrid_pos] = ff_gengrid( features, param, quant)
-% This function generates a grid for Hough voting with a quantization
-% 'quant'.
 
 
 if ~exist('quant','var')
@@ -54,4 +46,3 @@ ymax = y_max + 2 * param.radius ;
 
 % Generate votegrid_pos
 votegrid_pos = reshape(votegrid,[],2) ;
-

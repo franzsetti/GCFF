@@ -1,24 +1,5 @@
-% Copyright 2014 Francesco Setti, Marco Cristani and Chris Russell
-% Department of Computer Science
-% University of Verona
-% http://www.di.univr.it/
-%     and
-% Department of Computer Science
-% University College of London
-% 
-% Permission is hereby granted, free of charge, to any person obtaining a
-% copy of this software and associated documentation files (the
-% "Software"), to deal in the Software without restriction, subject to the
-% following conditions: 
-%  * The above copyright notice and this permission notice shall be
-%    included in all copies or substantial portions of the Software. 
-%  * The Software is provided "as is", without warranty of any kind.
-%
-% September 2014
-%
-
 function seg = gc( f, stride, MDL_in)
-% Runs graphcuts
+% Runs graph-cuts
 
 
 locs = find_locs( f, stride ) ;
@@ -61,7 +42,7 @@ while ~isequal(seg,segold) && numiter <= MAX_ITER
 %         keyboard
 % %     end
 %     %%%%%% END TEMP
-    
+
     segold = seg ;
     mdl = ones(size(unary,2),1) * MDL_in ;
     % run graphcuts
@@ -107,7 +88,7 @@ u = unique( labels ) ;
 distmat = zeros( size(loc,1), length(u) ) ;
 
 for i = 1:length(u)
-    
+
     means = mean( loc(labels==u(i),:), 1) ;
     labels(labels==u(i)) = i-1 ;
     % dist(:,i)=((loc-means)**2).sum(2) %%you need to use repmat here, or some kind of built in L_2 norm on a matrix of vectors
