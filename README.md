@@ -14,11 +14,12 @@ We model the probability of each individual to belong to a specific o-space as: 
 We then build the cost function by adding a Minimum Description Length (MDL) prior and considering the log function of the probability obtained.
 Moreover, we introduce an additive term which acts as the visibility constraint on the individual i regardless of the group person j is assigned to.
 
-You can find more details about the method on the [paper](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0123783) or [here](http://vips.sci.univr.it/research/fformation/).
+You can find more details about the method on the original PloS One [paper](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0123783) or on the dedicated [webpage](http://vips.sci.univr.it/research/fformation/).
+
 
 ### License
 
-The code is free for academic purposes.
+GCFF is released under the MIT License (refer to the LICENSE file for details).
 
 
 ### Citing GCFF
