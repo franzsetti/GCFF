@@ -1,6 +1,12 @@
-%% example_GCFF.m
+% -----------------------------------------
+% Graph-Cuts for F-Formation (GCFF)
+% 2015 - University of Verona
+% Written by Francesco Setti
+% -----------------------------------------
+%
 % This script is just an example of how to use the GCFF code to run
 % experiments on provided data.
+%
 
 
 %% INITIALIZATION
@@ -45,7 +51,7 @@ for idxFrame = 1:length(timestamp)
     for ii = 1:max(gg)+1
         groups{idxFrame}{ii} = features{idxFrame}(gg==ii-1,1) ;
     end
-    
+
     if ~isempty(groups{idxFrame})
         groups{idxFrame} = ff_deletesingletons(groups{idxFrame}) ;
     end
@@ -53,7 +59,7 @@ for idxFrame = 1:length(timestamp)
         GTgroups{idxFrame} = ff_deletesingletons(GTgroups{idxFrame}) ;
     end
     [precision(idxFrame),recall(idxFrame),TP(idxFrame),FP(idxFrame),FN(idxFrame)] = ff_evalgroups(groups{idxFrame},GTgroups{idxFrame},'card') ;
-    
+
     % DISPLAY RESULTS
     % Frame:
     fprintf('Frame: %d/%d\n', idxFrame, length(timestamp))
@@ -79,7 +85,7 @@ for idxFrame = 1:length(timestamp)
         fprintf(' No Groups ')
     end
     fprintf('\n');
-    
+
 end
 
 pr = mean(precision) ;

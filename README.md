@@ -38,6 +38,28 @@ If you find GCFF useful in your research, please consider citing:
     }
 
 
+### Getting started
+
+#### System requirements:
+1. Matlab with a supported compiler
+
+#### Installation:
+1. Clone the GCFF repository:
+
+    git clone https://github.com/franzsetti/GCFF.git
+
+Lets call the directory you cloned `GCFF_ROOT`.
+
+2. The repository already contains mex files for Windows and Linux 64bit machines. If you have a different system, you will need to mex the files again. To do that: open Matlab, move to the graphopt subfolder and run compile.m script.
+
+    cd GCFF_ROOT/graphopt
+    compile.m
+
+3. Add the folder and subfolders to matlab path
+
+    addpath(genpath(GCFF_ROOT)) ;
+
+
 ### Data
 
 In order to run the example provided and to reproduce the experiments of the original paper, you may want to download the datasets [here](http://vips.sci.univr.it/research/fformation/download/data.zip).
