@@ -46,7 +46,7 @@ If you find GCFF useful in your research, please consider citing:
 #### Installation:
 1. Clone the GCFF repository:
 
-    ```
+    ```Shell
     git clone https://github.com/franzsetti/GCFF.git
     ```
 
@@ -54,7 +54,7 @@ If you find GCFF useful in your research, please consider citing:
 
 2. The repository already contains mex files for Windows and Linux 64bit machines. If you have a different system, you will need to mex the files again. To do that: open Matlab, move to the graphopt subfolder and run compile.m script.
 
-    ```
+    ```Matlab
     cd GCFF_ROOT/graphopt
     compile.m
     ```
